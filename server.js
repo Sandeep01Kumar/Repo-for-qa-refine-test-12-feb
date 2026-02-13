@@ -1,14 +1,18 @@
-const http = require('http');
+const express = require('express');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World!\n');
+// GET / — Preserved "Hello, World!" endpoint (character-for-character identical response with trailing newline)
+app.get('/', (req, res) => {
+  res.send('Hello, World!\n');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+// GET /evening — New endpoint returning "Good evening" as plaintext
+app.get('/evening', (req, res) => {
+  res.send('Good evening');
+});
+
+// Bind to 127.0.0.1:3000 with preserved startup log message
+app.listen(3000, '127.0.0.1', () => {
+  console.log('Server running at http://127.0.0.1:3000/');
 });
